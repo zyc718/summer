@@ -2,7 +2,6 @@ package log
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/sirupsen/logrus"
 	"io"
 	"os"
@@ -37,7 +36,6 @@ func Init(configRaw json.RawMessage) error {
 
 	if config.Enable {
 		var logWriter io.Writer
-		fmt.Printf("qqqq %v\n", config.UseWriter)
 		switch config.UseWriter {
 		case "file":
 			logWriter, err = writer.NewFileWriter(config.Writers[config.UseWriter])

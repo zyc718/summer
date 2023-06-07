@@ -3,17 +3,24 @@ package main
 import (
 	"encoding/json"
 	"flag"
+	"fmt"
 	"io/ioutil"
+	_ "summer/utils/db/mysql"
+	"summer/utils/db/pool"
 	"summer/utils/log"
+	"summer/utils/store"
 )
 
 type configType struct {
-	Log json.RawMessage `json:"log_config"`
+	Log   json.RawMessage `json:"log_config"`
+	Store json.RawMessage `json:"store_config"`
 }
 
 func init() {
 	//读取配置文件
 	var configfile = flag.String("config", "config.conf", "Path to config file.")
+
+	var tags = flag.String("tags", "default tags", "for tag test")
 	flag.Parse()
 	var config configType
 	fileContent, err := ioutil.ReadFile(*configfile)
@@ -27,6 +34,28 @@ func init() {
 	if err = log.Init(config.Log); err != nil {
 		panic(any("初始化日志失败" + err.Error()))
 	}
-	log.Infof("这是日志debug测试 %v\n", "zzzz")
-	route()
+	err = pool.Pool.Initiate(config.Store)
+	if err != nil {
+		panic(any("初始化连接池失败" + err.Error()))
+	}
+	err = store.OpenAdapter(1, config.Store)
+	if err != nil {
+		defer func() {
+			if err := recover(); err != any(nil) {
+				fmt.Printf("%v\n", err)
+			}
+		}()
+		panic(any("初始化数据库失败" + err.Error()))
+	}
+
+	res, err := store.Topics.Get(*tags)
+	if err != nil {
+		fmt.Printf("错误结果是%v\n", err.Error())
+	}
+	fmt.Printf("结果是%+v\n", res)
+
+	//连接redis
+
+	//route()
+
 }
