@@ -39,7 +39,7 @@ func OpenAdapter(workerId int, jsonconf json.RawMessage) error {
 			}
 
 		} else if len(availableAdapters) == 1 {
-			fmt.Printf("availableAdapters is %v\n", availableAdapters)
+			//fmt.Printf("availableAdapters is %v\n", availableAdapters)
 			// Default to the only entry in availableAdapters.
 			for _, v := range availableAdapters {
 				adp = v

@@ -2,7 +2,6 @@ package mysql
 
 import (
 	"encoding/json"
-	"fmt"
 	"github.com/jmoiron/sqlx"
 	"summer/utils/db/pool"
 	"summer/utils/store"
@@ -37,7 +36,7 @@ const (
 
 func (a *adapter) TopicGet(topic string) (*types.Topic, error) {
 	//TODO implement me
-	fmt.Printf("这是mysql TopicGet \n")
+	//fmt.Printf("这是mysql TopicGet \n")
 	type Test struct {
 		Id   string `json:"id"`
 		Name string `json:"name"`
@@ -54,13 +53,13 @@ func (a *adapter) TopicGet(topic string) (*types.Topic, error) {
 
 func (a *adapter) GetName() string {
 	//TODO implement me
-	fmt.Printf("这是mysql GetName \n")
+	//fmt.Printf("这是mysql GetName \n")
 	return adapterName
 
 }
 
 func (a *adapter) Open(config json.RawMessage) error {
-	fmt.Printf("这是 mysql 包的open 方法 ")
+	//fmt.Printf("这是 mysql 包的open 方法 ")
 	if a.maxResults <= 0 {
 		a.maxResults = defaultMaxResults
 	}
@@ -99,6 +98,6 @@ func (a *adapter) SetMaxResults(val int) error {
 }
 
 func init() {
-	fmt.Printf("这是mysql 的init 方法 \n")
+	//fmt.Printf("这是mysql 的init 方法 \n")
 	store.RegisterAdapter(&adapter{})
 }
