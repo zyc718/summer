@@ -11,4 +11,5 @@ func main() {
     Beautiful things are happening quietly
                                   --Summer
 `, current.Format("2006-01-02 15:04:05"))
+
 }

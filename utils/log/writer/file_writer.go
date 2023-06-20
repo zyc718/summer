@@ -7,6 +7,8 @@ import (
 	"summer/utils/types"
 )
 
+// 这是fileWriter struct
+
 type FileWriter struct {
 	path string
 }
@@ -15,7 +17,10 @@ type fileConfig struct {
 	Path string `json:"path"`
 }
 
+// 读取配置
+
 func NewFileWriter(configRaw json.RawMessage) (*FileWriter, error) {
+
 	var config fileConfig
 	if err := json.Unmarshal(configRaw, &config); err != nil {
 		return nil, err
