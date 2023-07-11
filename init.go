@@ -24,6 +24,7 @@ func init() {
 	var configfile = flag.String("config", "config.conf", "Path to config file.")
 
 	//var tags = flag.String("tags", "mysql", "")
+
 	flag.Parse()
 	var config configType
 	fileContent, err := ioutil.ReadFile(*configfile)
@@ -33,44 +34,44 @@ func init() {
 	if err = json.Unmarshal(fileContent, &config); err != nil {
 		log.Fatalf("Failed to decode config file: %s", err.Error())
 	}
+	fmt.Printf("config success\n")
+
 	// 初始化日志
 	if err = log.Init(config.Log); err != nil {
 		panic(any("初始化日志失败" + err.Error()))
 	}
-	log.Infof("日志测试111%v", "aa")
+	fmt.Printf("login success\n")
 
 	err = pool.Pool.Initiate(config.Store)
 	if err != nil {
 		panic(any("初始化连接池失败" + err.Error()))
 	}
 
+	fmt.Printf("pool success\n")
+
 	cache.Pool, err = goredis.NewPool(config.Cache)
 	if err != nil {
 		panic(any("连接redis失败:" + err.Error()))
 	}
 
-	db, _ := cache.Pool.Get(nil)
-	flag, err := db.Get("name")
+	fmt.Printf("redis success\n")
 
-	if flag == "" || err != nil {
-		fmt.Printf("name 缓存不存在\n")
-	} else {
-		fmt.Printf("name 缓存是 %v\n", flag)
-
-	}
+	//db, _ := cache.Pool.Get(nil)
+	//flag, err := db.Get("name")
+	//
+	//if flag == "" || err != nil {
+	//	fmt.Printf("name 缓存不存在\n")
+	//} else {
+	//
+	//}
 	err = store.OpenAdapter(1, config.Store)
 	if err != nil {
 		panic(any("初始化数据库失败" + err.Error()))
 	}
-	//fmt.Printf("获取的缓存设置%v\n", string(config.Cache))
-	//res, err := store.Topics.Get(*tags)
-	//if err != nil {
-	//	fmt.Printf("错误结果是%v\n", err.Error())
-	//}
-	//fmt.Printf("结果是%+v\n", res)
+	fmt.Printf("db success\n")
+
 	//注册路由
 	route()
-
-	log.Infof("这是init 函数")
+	log.Infof("init done")
 
 }
