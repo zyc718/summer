@@ -1,3 +1,5 @@
+{"level":"info","line":"summer/init.go:40","msg":"日志测试111aa","time":"2023-07-10T11:33:11+08:00"}
+name 缓存不存在
 [GIN-debug] [WARNING] Creating an Engine instance with the Logger and Recovery middleware already attached.
 
 [GIN-debug] [WARNING] Running in "debug" mode. Switch to "release" mode in production.
@@ -8,4 +10,5 @@
 [GIN-debug] [WARNING] You trusted all proxies, this is NOT safe. We recommend you to set a value.
 Please check https://pkg.go.dev/github.com/gin-gonic/gin#readme-don-t-trust-all-proxies for details.
 [GIN-debug] Listening and serving HTTP on :8090
-[GIN] 2023/06/20 - 19:57:28 | 404 |         717ns |       127.0.0.1 | GET      "/"
+[GIN] 2023/07/10 - 11:33:33 | 404 |         587ns |       127.0.0.1 | GET      "/"
+[GIN] 2023/07/10 - 11:33:40 | 200 |     121.802µs |       127.0.0.1 | GET      "/ping"

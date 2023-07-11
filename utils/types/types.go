@@ -38,6 +38,10 @@ type perUserData struct {
 	want    AccessMode
 	given   AccessMode
 }
+type TopicTest struct {
+	Id   int    `json:"id"`
+	Name string `json:"name"`
+}
 
 // Topic stored in database. Topic's name is Id
 type Topic struct {

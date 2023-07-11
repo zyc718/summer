@@ -14,7 +14,7 @@ type Adapter interface {
 	//adapter
 	Open(config json.RawMessage) error
 	// TopicGet loads a single topic by name, if it exists. If the topic does not exist the call returns (nil, nil)
-	TopicGet(topic string) (*types.Topic, error)
+	TopicGet(topic string) (*types.TopicTest, error)
 
 	// GetName returns the name of the adapter
 	GetName() string

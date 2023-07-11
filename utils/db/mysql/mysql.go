@@ -2,11 +2,13 @@ package mysql
 
 import (
 	"encoding/json"
-	"github.com/jmoiron/sqlx"
+	"fmt"
 	"summer/utils/db/pool"
 	"summer/utils/store"
 	"summer/utils/types"
 	"time"
+
+	"github.com/jmoiron/sqlx"
 )
 
 // adapter holds MySQL connection data.
@@ -22,19 +24,13 @@ type adapter struct {
 }
 
 const (
-	defaultDSN      = "root:@tcp(localhost:3306)/tinode?parseTime=true"
-	defaultDatabase = "tinode"
-
-	adpVersion = 111
-
-	adapterName = "local"
-
+	adapterName       = "local"
 	defaultMaxResults = 1024
 	// This is capped by the Session's send queue limit (128).
 	defaultMaxMessageResults = 100
 )
 
-func (a *adapter) TopicGet(topic string) (*types.Topic, error) {
+func (a *adapter) TopicGet(topic string) (*types.TopicTest, error) {
 	//TODO implement me
 	//fmt.Printf("这是mysql TopicGet \n")
 	type Test struct {
@@ -46,8 +42,11 @@ func (a *adapter) TopicGet(topic string) (*types.Topic, error) {
 	if err != nil {
 		return nil, err
 	}
-	return &types.Topic{
-		Owner: dest.Name,
+
+	fmt.Printf("结果是%v\n", dest)
+
+	return &types.TopicTest{
+		Name: dest.Name,
 	}, nil
 }
 

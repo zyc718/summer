@@ -73,7 +73,7 @@ type TopicsObjMapper struct{}
 
 var Topics TopicsObjMapper
 
-func (TopicsObjMapper) Get(topic string) (*types.Topic, error) {
+func (TopicsObjMapper) Get(topic string) (*types.TopicTest, error) {
 	res, err := adp.TopicGet(topic)
 	return res, err
 }
